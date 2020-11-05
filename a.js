@@ -1,32 +1,35 @@
 window.onload = function() {
     var row = 4,
-        col = 4, // Change the Values Here!
+        col = 4,
         bool = true,
-        btn = document.querySelectorAll('button')[0];
+        btn = document.querySelectorAll("button")[0];
     btn.onclick = function() {
         bool ? shuffle() : shuffle.stop();
         bool = !bool;
     };
     for (var i = 0, j; i < row; i++) {
         j = col;
-        document.querySelectorAll('table')[0].appendChild(document.createElement('tr'));
+        document
+            .querySelectorAll("table")[0]
+            .appendChild(document.createElement("tr"));
         while (j-- > 0)
-            document.querySelectorAll('tr')[i].appendChild(document.createElement('td'));
+            document
+            .querySelectorAll("tr")[i].appendChild(document.createElement("td"));
     }
-    var box = document.querySelectorAll('td'),
+    var box = document.querySelectorAll("td"),
         move = 0,
         p = row * col - 1;
     var nth = box.length - 1;
     for (var i = 0; i <= nth;) {
-        box[i].addEventListener('click', clicked(i));
+        box[i].addEventListener("click", clicked(i));
         box[i].innerHTML = ++i;
     }
 
     function clicked(k) {
         return function() {
-            document.querySelectorAll('span')[0].innerHTML = 'Moves: ' + ++move;
+            document.querySelectorAll("span")[0].innerHTML = "Moves: " + ++move;
             play(k);
-            if (box[nth].style.visibility == 'hidden') check(box);
+            if (box[nth].style.visibility == "hidden") check(box);
         };
     }
 
@@ -36,19 +39,21 @@ window.onload = function() {
         if (k % col == 0) gap[1] = 0;
         if (k % col == col - 1) gap[2] = 0;
         for (var i = 0; i < 4; i++)
-            if (box[k + gap[i]].style.visibility == 'hidden') {
+            if (box[k + gap[i]].style.visibility == "hidden") {
                 box[k + gap[i]].innerHTML = box[k].innerHTML;
-                box[k + gap[i]].style.visibility = 'visible';
-                box[k].style.visibility = 'hidden';
+                box[k + gap[i]].style.visibility = "visible";
+                box[k].style.visibility = "hidden";
                 break;
             }
     }
 
     function shuffle() {
-        if (p == nth) box[p].style.visibility = 'hidden';
-        btn.style.background = 'skyblue';
+        if (p == nth) box[p].style.visibility = "hidden";
+        btn.style.background =
+            "linear-gradient( rgb(71, 71, 71)),rgb(51, 51, 51),rgb(32, 31, 31)";
         var H = Math.floor(Math.random() * 2),
-            X, q;
+            X,
+            q;
         move = q = 0;
         var loop = setInterval(function() {
             if (H == 0 && p % col == 0) p++;
@@ -70,7 +75,8 @@ window.onload = function() {
             q = 0;
 
             function stop() {
-                btn.style.background = 'white';
+                btn.style.background =
+                    "linear-gradient(rgb(32, 31, 31), rgb(51, 51, 51), rgb(71, 71, 71))";
                 clearInterval(loop);
             }
             shuffle.stop = stop;
@@ -85,10 +91,10 @@ window.onload = function() {
             if (arr[i].innerHTML == ++i) continue;
             else break;
         if (i == nth) {
-            box[nth].style.visibility = 'visible';
+            box[nth].style.visibility = "visible";
             box[nth].innerHTML = row * col;
             p = row * col - 1;
-            alert("Congratulations!\nYou Completed the Puzzle in " + move + " Moves.");
+            alert("Congratulations!\nYou Completed the Puzle in " + move + " Moves.");
         }
     }
-}
+};
